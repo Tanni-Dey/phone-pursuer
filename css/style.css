@@ -2,3 +2,7 @@
 .error{
     display: none;
 }
+/* card css */
+.card{
+    text-align: center;
+}

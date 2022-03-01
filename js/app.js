@@ -26,18 +26,25 @@ const displayPhone = AllData => {
     else {
         AllData.forEach(data => {
             // console.log(data)
-            const div = document.createElement('div');
-            div.classList.add('card')
-            div.classList.add('p-4')
-            div.classList.add('col-md-4')
-            div.innerHTML = `<img src="${data.image}" class="card-img-fluid" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">${data.phone_name}</h5>
-              <p class="card-text">Brand : ${data.brand}</p>
-              <button onclick="loadSinglePhone('${data.slug}')" class="btn btn-warning">Phone Details</button>
-            </div>`
-            allCard.appendChild(div);
-            errorDisplay('none', '1px solid gainsboro')
+            //only 20 phone display
+            if (AllData.indexOf(data) < 20) {
+                const div = document.createElement('div');
+                div.classList.add('card')
+                div.classList.add('p-4')
+                div.classList.add('col-md-4')
+                div.innerHTML = `<img src="${data.image}" width: "10em" class="card-img-fluid mx-auto" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">${data.phone_name}</h5>
+                  <p class="card-text">Brand : ${data.brand}</p>
+                  <button onclick="loadSinglePhone('${data.slug}')" class="btn btn-warning">Phone Details</button>
+                </div>`
+                allCard.appendChild(div);
+                errorDisplay('none', '1px solid gainsboro')
+            }
+            else {
+
+            }
+
         });
     }
 }
@@ -56,7 +63,7 @@ const displaySinglePhone = data => {
     const div = document.createElement('div');
     div.classList.add('card')
     div.classList.add('p-4')
-    div.innerHTML = `<img src="${data.image}" class="card-img-fluid" alt="...">
+    div.innerHTML = `<img src="${data.image}" width="300em" class="card-img-fluid mx-auto" alt="...">
             <div class="card-body">
               <h4 class="card-title">${data.name}</h4>
               <h5 class="card-text">Brand : ${data.brand}</h5>
