@@ -15,16 +15,17 @@ const errorDisplay = (style, border) => {
 }
 //All search result
 const displayPhone = AllData => {
-    console.log(AllData)
+    //console.log(AllData)
     const allCard = document.getElementById('all-card');
     allCard.textContent = ''
+    document.getElementById('single-card').textContent = ''
     //result not fond error message
     if (AllData.length === 0) {
         errorDisplay('block', '1px solid red')
     }
     else {
         AllData.forEach(data => {
-            //console.log(data)
+            // console.log(data)
             const div = document.createElement('div');
             div.classList.add('card')
             div.classList.add('p-4')
@@ -49,7 +50,7 @@ const loadSinglePhone = slug => {
 }
 //display single phone details
 const displaySinglePhone = data => {
-    console.log(data)
+    //console.log(JSON.stringify(Object.entries(data.others)))
     const singleCard = document.getElementById('single-card')
     singleCard.textContent = ''
     const div = document.createElement('div');
@@ -57,9 +58,17 @@ const displaySinglePhone = data => {
     div.classList.add('p-4')
     div.innerHTML = `<img src="${data.image}" class="card-img-fluid" alt="...">
             <div class="card-body">
-              <h5 class="card-title">${data.name}</h5>
-              <p class="card-text">Brand : ${data.brand}</p>
-              <p>${data.releaseDate ? data.releaseDate : 'No Date Found'}</p>
+              <h4 class="card-title">${data.name}</h4>
+              <h5 class="card-text">Brand : ${data.brand}</h5>
+             <p> <strong>Chip Set : </strong> ${data.mainFeatures.chipSet}</p>
+             <p><strong>Display Size  :</strong> ${data.mainFeatures.displaySize}</p>
+             <p><strong>Memory :</strong> ${data.mainFeatures.memory}</p>
+             <p><strong>Sensors :</strong> ${data.mainFeatures.sensors.filter(sData => sData)}</p>
+             <p><strong>Storage  :</strong> ${data.mainFeatures.storage}</p>
+             <p><strong>Others  :</strong> ${data?.others?.Bluetooth ? data?.others?.Bluetooth : ''} ${data?.others?.GPS ? data.others.GPS : ''} ${data?.others?.NFC ? data.others.NFC : ''} ${data?.others?.Radio ? data.others.Radio : ''} ${data?.others?.USB ? data.others.USB : ''} ${data?.others?.WLAN ? data.others.WLAN : ''}
+                
+             </p>
+              <p>${data.releaseDate ? data.releaseDate : 'No Release Date Found'}</p>
             </div>`
     singleCard.appendChild(div);
 }
