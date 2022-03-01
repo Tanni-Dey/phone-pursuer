@@ -6,3 +6,11 @@
 .card{
     text-align: center;
 }
+/* sppiner */
+#spinner{
+    display: none;
+}
+/* see-all-button */
+#see-all-btn{
+    display: none;
+}

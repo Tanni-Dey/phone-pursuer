@@ -1,6 +1,10 @@
 const searchInput = document.getElementById('search-input');
+
+//display sppiner function
+const displaySppiner = style => document.getElementById('spinner').style.display = style
 //load data function
 const loadPhone = () => {
+    displaySppiner('block')
     const searchText = searchInput.value;
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
     fetch(url)
@@ -13,6 +17,7 @@ const errorDisplay = (style, border) => {
     document.getElementById('phone-empty-error').style.display = style
     searchInput.style.border = border
 }
+
 //All search result
 const displayPhone = AllData => {
     //console.log(AllData)
@@ -22,6 +27,7 @@ const displayPhone = AllData => {
     //result not fond error message
     if (AllData.length === 0) {
         errorDisplay('block', '1px solid red')
+        displaySppiner('none')
     }
     else {
         AllData.forEach(data => {
@@ -40,11 +46,9 @@ const displayPhone = AllData => {
                 </div>`
                 allCard.appendChild(div);
                 errorDisplay('none', '1px solid gainsboro')
+                //document.getElementById('see-all-btn').style.display = 'block'
             }
-            else {
-
-            }
-
+            displaySppiner('none')
         });
     }
 }
@@ -57,7 +61,6 @@ const loadSinglePhone = slug => {
 }
 //display single phone details
 const displaySinglePhone = data => {
-    //console.log(JSON.stringify(Object.entries(data.others)))
     const singleCard = document.getElementById('single-card')
     singleCard.textContent = ''
     const div = document.createElement('div');
