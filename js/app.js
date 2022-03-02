@@ -1,4 +1,5 @@
-const searchInput = document.getElementById('search-input');
+const searchInput = document.getElementById('search-input');//search input id
+const allCard = document.getElementById('all-card');//all cards id
 
 //display sppiner function
 const displaySppiner = style => document.getElementById('spinner').style.display = style
@@ -20,9 +21,23 @@ const errorDisplay = (style, border) => {
     searchInput.style.border = border
 }
 
+//all div show
+const showPhoneCard = (image, name, brand, slug) => {
+    const div = document.createElement('div');
+    div.classList.add('card')
+    div.classList.add('p-4')
+    div.classList.add('col-md-4')
+    div.innerHTML = `<img src="${image}" width: "10em" class="card-img-fluid mx-auto" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${name}</h5>
+      <p class="card-text">Brand : ${brand}</p>
+      <button onclick="loadSinglePhone('${slug}')" class="btn btn-warning">Phone Details</button>
+    </div>`
+    allCard.appendChild(div);
+}
+
 //All search result
 const displayPhone = AllData => {
-    const allCard = document.getElementById('all-card');
     allCard.textContent = ''
     document.getElementById('single-card').textContent = ''
     //result not fond error message
@@ -34,33 +49,13 @@ const displayPhone = AllData => {
         AllData.forEach(data => {
             //only 20 phone display
             if (AllData.indexOf(data) < 20) {
-                const div = document.createElement('div');
-                div.classList.add('card')
-                div.classList.add('p-4')
-                div.classList.add('col-md-4')
-                div.innerHTML = `<img src="${data.image}" width: "10em" class="card-img-fluid mx-auto" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">${data.phone_name}</h5>
-                  <p class="card-text">Brand : ${data.brand}</p>
-                  <button onclick="loadSinglePhone('${data.slug}')" class="btn btn-warning">Phone Details</button>
-                </div>`
-                allCard.appendChild(div);
+                showPhoneCard(data.image, data.phone_name, data.brand, data.slug);
                 errorDisplay('none', '1px solid gainsboro')
                 document.getElementById('see-all-btn').style.display = 'block'
             }
             else {
                 document.getElementById('see-all-btn').addEventListener('click', function () {
-                    const div = document.createElement('div');
-                    div.classList.add('card')
-                    div.classList.add('p-4')
-                    div.classList.add('col-md-4')
-                    div.innerHTML = `<img src="${data.image}" width: "10em" class="card-img-fluid mx-auto" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">${data.phone_name}</h5>
-                  <p class="card-text">Brand : ${data.brand}</p>
-                  <button onclick="loadSinglePhone('${data.slug}')" class="btn btn-warning">Phone Details</button>
-                </div>`
-                    allCard.appendChild(div);
+                    showPhoneCard(data.image, data.phone_name, data.brand, data.slug);
                     document.getElementById('see-all-btn').style.display = 'none'
 
                 })
@@ -70,7 +65,7 @@ const displayPhone = AllData => {
     }
 }
 
-// single phone details
+//load single phone details
 const loadSinglePhone = slug => {
     const url = `https://openapi.programming-hero.com/api/phone/${slug}`;
     fetch(url)
